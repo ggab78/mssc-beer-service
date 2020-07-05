@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/beer")
 @RestController
 public class BeerController {
-
 
     private final BeerService beerService;
 
@@ -25,12 +23,17 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity addBeer(BeerDto beerDto) {
+    public ResponseEntity addBeer(@RequestBody BeerDto beerDto) {
 
         BeerDto savedDto = beerService.saveBeer(beerDto);
         HttpHeaders header = new HttpHeaders();
-        header.add("Location", "/api/v1/beer/" + savedDto.getId());
-
+        header.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
         return new ResponseEntity(header, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{beerId}")
+    public ResponseEntity updateBeer(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
+        beerService.updateBeer(beerId, beerDto);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }
