@@ -86,4 +86,13 @@ public class BeerControllerTest {
                 .content(validJson))
                 .andExpect(status().isAccepted());
     }
+
+    @Test
+    public void deleteBeer() throws Exception {
+
+        doNothing().when(beerService).deleteBeer(any(UUID.class));
+
+        mockMvc.perform(delete("/api/v1/beer/" + validBeer.getId().toString()))
+                .andExpect(status().isAccepted());
+    }
 }
