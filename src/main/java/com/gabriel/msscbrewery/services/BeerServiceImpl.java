@@ -1,6 +1,7 @@
 package com.gabriel.msscbrewery.services;
 
 import com.gabriel.msscbrewery.web.model.BeerDto;
+import com.gabriel.msscbrewery.web.model.BeerStyleEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class BeerServiceImpl implements BeerService {
         return BeerDto.builder()
                 .id(UUID.randomUUID())
                 .beerName("Galaxy Cat")
-                .beerStyle("Pale Ale")
+                .beerStyle(BeerStyleEnum.GOSE)
                 .build();
     }
 
