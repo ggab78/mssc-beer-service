@@ -40,6 +40,7 @@ public class BeerController {
     @DeleteMapping("/{beerId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteBeer(@PathVariable("beerId") UUID beerId){
+
         beerService.deleteBeer(beerId);
     }
 
