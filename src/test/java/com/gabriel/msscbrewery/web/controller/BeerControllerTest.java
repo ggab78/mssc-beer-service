@@ -42,7 +42,6 @@ class BeerControllerTest {
     @BeforeEach
     void setUp() {
         beerDto = BeerDto.builder()
-                //.id(UUID.randomUUID())
                 .beerName("test")
                 .beerStyle(BeerStyleEnum.GOSE)
                 .price(new BigDecimal("12.95"))
@@ -63,6 +62,7 @@ class BeerControllerTest {
     void saveNewBeer() throws Exception {
 
         String beerJson = objectMapper.writeValueAsString(beerDto);
+        beerDto.setId(UUID.randomUUID());
 
         given(beerService.saveBeer(any(BeerDto.class))).willReturn(beerDto);
 
@@ -76,7 +76,6 @@ class BeerControllerTest {
 
     @Test
     void updateBeerById() throws Exception {
-
 
         String beerJson = objectMapper.writeValueAsString(beerDto);
         doNothing().when(beerService).updateBeer(any(UUID.class), any(BeerDto.class));

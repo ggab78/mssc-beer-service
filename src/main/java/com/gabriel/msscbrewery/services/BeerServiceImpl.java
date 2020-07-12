@@ -1,6 +1,8 @@
 package com.gabriel.msscbrewery.services;
 
+import com.gabriel.msscbrewery.domain.Beer;
 import com.gabriel.msscbrewery.repositories.BeerRepository;
+import com.gabriel.msscbrewery.web.mappers.BeerMapper;
 import com.gabriel.msscbrewery.web.model.BeerDto;
 import com.gabriel.msscbrewery.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class BeerServiceImpl implements BeerService {
 
     private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
 
     @Override
     public BeerDto getBeerById(UUID beerId) {
@@ -27,9 +30,9 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDto saveBeer(BeerDto beerDto) {
-        return BeerDto.builder()
-                .id(UUID.randomUUID())
-                .build();
+        Beer beer =  beerMapper.BeerDtoToBeer(beerDto);
+        Beer savedBeer = beerRepository.save(beer);
+        return beerMapper.BeerToBeerDto(savedBeer);
     }
 
     @Override
