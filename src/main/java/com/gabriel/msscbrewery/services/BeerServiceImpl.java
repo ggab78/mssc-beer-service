@@ -1,7 +1,9 @@
 package com.gabriel.msscbrewery.services;
 
+import com.gabriel.msscbrewery.repositories.BeerRepository;
 import com.gabriel.msscbrewery.web.model.BeerDto;
 import com.gabriel.msscbrewery.web.model.BeerStyleEnum;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +11,10 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BeerServiceImpl implements BeerService {
+
+    private final BeerRepository beerRepository;
 
     @Override
     public BeerDto getBeerById(UUID beerId) {
