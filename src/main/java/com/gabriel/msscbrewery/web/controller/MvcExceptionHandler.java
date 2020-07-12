@@ -12,7 +12,6 @@ import java.util.List;
 @ControllerAdvice
 public class MvcExceptionHandler {
 
-
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List> validationErrorHandling(ConstraintViolationException e){
 
