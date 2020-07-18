@@ -40,7 +40,7 @@ public class BeerServiceImpl implements BeerService {
                 .map(beer -> {
                     Optional.ofNullable(beerDto.getBeerName()).ifPresent(s -> beer.setBeerName(s));
                     Optional.ofNullable(beerDto.getBeerStyle()).ifPresent(e -> beer.setBeerStyle(e.name()));
-                    Optional.ofNullable(beerDto.getUpc()).ifPresent(l -> beer.setUpc(l));
+                    Optional.ofNullable(beerDto.getUpc()).ifPresent(s -> beer.setUpc(s));
                     Optional.of(beerDto.getPrice()).ifPresent(n->beer.setPrice(n));
                     return beer;
                 })

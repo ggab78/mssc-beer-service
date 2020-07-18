@@ -45,7 +45,7 @@ class BeerControllerTest {
                 .beerName("test")
                 .beerStyle(BeerStyleEnum.GOSE)
                 .price(new BigDecimal("12.95"))
-                .upc(1234567L)
+                .upc("0023423452435")
                 .build();
     }
 
@@ -80,7 +80,7 @@ class BeerControllerTest {
     void updateBeerById() throws Exception {
 
         String beerJson = objectMapper.writeValueAsString(beerDto);
-        doNothing().when(beerService).updateBeer(any(UUID.class), any(BeerDto.class));
+        given(beerService.updateBeer(any(UUID.class), any(BeerDto.class))).willReturn(beerDto);
 
         mockMvc.perform(put("/api/v1/beer/" + UUID.randomUUID().toString())
                 .accept(MediaType.APPLICATION_JSON)
