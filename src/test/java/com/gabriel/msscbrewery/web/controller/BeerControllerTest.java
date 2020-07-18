@@ -62,6 +62,8 @@ class BeerControllerTest {
     void saveNewBeer() throws Exception {
 
         String beerJson = objectMapper.writeValueAsString(beerDto);
+        System.out.println(beerJson);
+
         beerDto.setId(UUID.randomUUID());
 
         given(beerService.saveBeer(any(BeerDto.class))).willReturn(beerDto);
