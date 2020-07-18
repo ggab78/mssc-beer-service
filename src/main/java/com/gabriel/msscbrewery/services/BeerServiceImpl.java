@@ -2,13 +2,14 @@ package com.gabriel.msscbrewery.services;
 
 import com.gabriel.msscbrewery.domain.Beer;
 import com.gabriel.msscbrewery.repositories.BeerRepository;
+import com.gabriel.msscbrewery.web.controller.NotFoundException;
 import com.gabriel.msscbrewery.web.mappers.BeerMapper;
 import com.gabriel.msscbrewery.web.model.BeerDto;
-import com.gabriel.msscbrewery.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -21,27 +22,34 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDto getBeerById(UUID beerId) {
-        return BeerDto.builder()
-                .id(UUID.randomUUID())
-                .beerName("Galaxy Cat")
-                .beerStyle(BeerStyleEnum.GOSE)
-                .build();
+        return beerRepository.findById(beerId)
+                .map(beer-> beerMapper.beerToBeerDto(beer))
+                .orElseThrow(NotFoundException::new);
     }
 
     @Override
     public BeerDto saveBeer(BeerDto beerDto) {
-        Beer beer =  beerMapper.BeerDtoToBeer(beerDto);
+        Beer beer = beerMapper.beerDtoToBeer(beerDto);
         Beer savedBeer = beerRepository.save(beer);
-        return beerMapper.BeerToBeerDto(savedBeer);
+        return beerMapper.beerToBeerDto(savedBeer);
     }
 
     @Override
-    public void updateBeer(UUID beerId, BeerDto beerDto) {
-        //todo - need implementation
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        Beer foundBeer = beerRepository.findById(beerId)
+                .map(beer -> {
+                    Optional.ofNullable(beerDto.getBeerName()).ifPresent(s -> beer.setBeerName(s));
+                    Optional.ofNullable(beerDto.getBeerStyle()).ifPresent(e -> beer.setBeerStyle(e.name()));
+                    Optional.ofNullable(beerDto.getUpc()).ifPresent(l -> beer.setUpc(l));
+                    Optional.of(beerDto.getPrice()).ifPresent(n->beer.setPrice(n));
+                    return beer;
+                })
+                .orElseThrow(NotFoundException::new);
+        return beerMapper.beerToBeerDto(beerRepository.save(foundBeer));
     }
 
     @Override
     public void deleteBeer(UUID beerId) {
-        log.debug("Deleting beer...");
+        beerRepository.deleteById(beerId);
     }
 }
