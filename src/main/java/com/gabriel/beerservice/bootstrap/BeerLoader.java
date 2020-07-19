@@ -8,13 +8,11 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class BeerLoader implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
-
-
 
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
