@@ -1,7 +1,7 @@
-package com.gabriel.msscbrewery.web.controller;
+package com.gabriel.beerservice.web.controller;
 
-import com.gabriel.msscbrewery.services.BeerService;
-import com.gabriel.msscbrewery.web.model.BeerDto;
+import com.gabriel.beerservice.services.BeerService;
+import com.gabriel.beerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
-package com.gabriel.msscbrewery.repositories;
+package com.gabriel.beerservice.repositories;
 
-import com.gabriel.msscbrewery.domain.Beer;
+import com.gabriel.beerservice.domain.Beer;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.UUID;

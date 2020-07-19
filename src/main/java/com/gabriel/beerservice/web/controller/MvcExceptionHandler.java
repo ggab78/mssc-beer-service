@@ -1,4 +1,4 @@
-package com.gabriel.msscbrewery.web.controller;
+package com.gabriel.beerservice.web.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

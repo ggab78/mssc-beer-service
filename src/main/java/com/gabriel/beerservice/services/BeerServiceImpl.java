@@ -1,10 +1,10 @@
-package com.gabriel.msscbrewery.services;
+package com.gabriel.beerservice.services;
 
-import com.gabriel.msscbrewery.domain.Beer;
-import com.gabriel.msscbrewery.repositories.BeerRepository;
-import com.gabriel.msscbrewery.web.controller.NotFoundException;
-import com.gabriel.msscbrewery.web.mappers.BeerMapper;
-import com.gabriel.msscbrewery.web.model.BeerDto;
+import com.gabriel.beerservice.domain.Beer;
+import com.gabriel.beerservice.repositories.BeerRepository;
+import com.gabriel.beerservice.web.controller.NotFoundException;
+import com.gabriel.beerservice.web.mappers.BeerMapper;
+import com.gabriel.beerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

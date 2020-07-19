@@ -1,7 +1,7 @@
-package com.gabriel.msscbrewery.bootstrap;
+package com.gabriel.beerservice.bootstrap;
 
-import com.gabriel.msscbrewery.domain.Beer;
-import com.gabriel.msscbrewery.repositories.BeerRepository;
+import com.gabriel.beerservice.domain.Beer;
+import com.gabriel.beerservice.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

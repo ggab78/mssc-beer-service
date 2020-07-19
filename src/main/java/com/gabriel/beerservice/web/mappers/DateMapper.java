@@ -1,4 +1,4 @@
-package com.gabriel.msscbrewery.web.mappers;
+package com.gabriel.beerservice.web.mappers;
 
 import org.springframework.stereotype.Component;
 

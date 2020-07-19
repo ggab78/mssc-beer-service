@@ -1,9 +1,9 @@
-package com.gabriel.msscbrewery.web.controller;
+package com.gabriel.beerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.gabriel.msscbrewery.services.BeerService;
-import com.gabriel.msscbrewery.web.model.BeerDto;
-import com.gabriel.msscbrewery.web.model.BeerStyleEnum;
+import com.gabriel.beerservice.services.BeerService;
+import com.gabriel.beerservice.web.model.BeerDto;
+import com.gabriel.beerservice.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static org.hamcrest.core.Is.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 

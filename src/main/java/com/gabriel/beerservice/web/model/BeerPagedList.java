@@ -1,4 +1,4 @@
-package com.gabriel.msscbrewery.web.model;
+package com.gabriel.beerservice.web.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

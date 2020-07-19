@@ -1,8 +1,8 @@
-package com.gabriel.msscbrewery.web.mappers;
+package com.gabriel.beerservice.web.mappers;
 
 
-import com.gabriel.msscbrewery.domain.Beer;
-import com.gabriel.msscbrewery.web.model.BeerDto;
+import com.gabriel.beerservice.domain.Beer;
+import com.gabriel.beerservice.web.model.BeerDto;
 import org.mapstruct.Mapper;
 
 @Mapper(uses={DateMapper.class})

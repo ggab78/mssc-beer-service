@@ -1,6 +1,6 @@
-package com.gabriel.msscbrewery.services;
+package com.gabriel.beerservice.services;
 
-import com.gabriel.msscbrewery.web.model.BeerDto;
+import com.gabriel.beerservice.web.model.BeerDto;
 
 import java.util.UUID;
 

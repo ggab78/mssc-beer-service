@@ -11,7 +11,7 @@
     <groupId>com.gabriel</groupId>
     <artifactId>mssc-brewery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>mssc-brewery</name>
+    <name>mssc-beer-service</name>
     <description>brewery application</description>
 
     <properties>

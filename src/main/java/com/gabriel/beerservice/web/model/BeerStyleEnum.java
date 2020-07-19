@@ -1,4 +1,4 @@
-package com.gabriel.msscbrewery.web.model;
+package com.gabriel.beerservice.web.model;
 
 public enum BeerStyleEnum {
 
