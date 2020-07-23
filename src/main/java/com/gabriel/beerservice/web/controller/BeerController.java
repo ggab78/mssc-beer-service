@@ -6,7 +6,6 @@ import com.gabriel.beerservice.web.model.BeerPagedList;
 import com.gabriel.beerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +35,15 @@ public class BeerController {
 
         pageNumber = Optional.ofNullable(pageNumber)
                 .filter(n -> n > 0)
-                .orElseGet(() -> DEFAULT_PAGE_NUMBER);
+                .orElse(DEFAULT_PAGE_NUMBER);
 
         pageSize = Optional.ofNullable(pageSize)
                 .filter(n -> n > 0)
-                .orElseGet(() -> DEFAULT_PAGE_SIZE);
+                .orElse(DEFAULT_PAGE_SIZE);
 
         showInventoryOnHand = Optional.ofNullable(showInventoryOnHand)
                 .filter(b -> b)
-                .orElseGet(() -> DEFAULT_SHOW_INVENTORY);
+                .orElse(DEFAULT_SHOW_INVENTORY);
 
         BeerPagedList beers = beerService.listBeers(beerName, beerStyle, showInventoryOnHand, PageRequest.of(pageNumber,pageSize));
 
@@ -57,7 +56,7 @@ public class BeerController {
 
         showInventoryOnHand = Optional.ofNullable(showInventoryOnHand)
                 .filter(b -> b)
-                .orElseGet(() -> DEFAULT_SHOW_INVENTORY);
+                .orElse(DEFAULT_SHOW_INVENTORY);
         return new ResponseEntity<>(beerService.getBeerById(beerId,showInventoryOnHand), HttpStatus.OK);
     }
 
