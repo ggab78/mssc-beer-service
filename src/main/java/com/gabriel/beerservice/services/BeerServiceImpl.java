@@ -28,14 +28,20 @@ public class BeerServiceImpl implements BeerService {
     private final BeerMapper beerMapper;
 
     @Override
-    public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, Pageable pageable){
+    public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, boolean showInventoryOnHand, Pageable pageable){
 
         Page<Beer> beers = beerRepository.findAll(pageable);
 
         List<BeerDto> beerDtoList = beers.stream()
                 .filter(beer-> isBeerName(beerName, beer))
                 .filter(beer -> isBeerStyle(beerStyle, beer))
-                .map(beerMapper::beerToBeerDto)
+                .map(b->{
+                    if(showInventoryOnHand){
+                        return beerMapper.beerToBeerDtoWithInventory(b);
+                    }else{
+                        return beerMapper.beerToBeerDto(b);
+                    }
+                })
                 .collect(Collectors.toList());
 
         return new BeerPagedList(beerDtoList,
@@ -46,7 +52,7 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public BeerDto getBeerById(UUID beerId) {
+    public BeerDto getBeerById(UUID beerId, boolean showInventoryOnHAnd) {
 
         return beerRepository.findById(beerId)
                 .map(beer -> {
@@ -54,7 +60,13 @@ public class BeerServiceImpl implements BeerService {
                     System.out.println(beer.getBeerName());
                     return beer;
                 })
-                .map(beerMapper::beerToBeerDto)
+                .map(b->{
+                    if(showInventoryOnHAnd){
+                        return beerMapper.beerToBeerDtoWithInventory(b);
+                    }else{
+                        return beerMapper.beerToBeerDto(b);
+                    }
+                })
                 .orElseThrow(NotFoundException::new);
     }
 
