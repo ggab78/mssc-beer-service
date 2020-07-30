@@ -62,11 +62,6 @@ public class BeerServiceImpl implements BeerService {
         System.out.println("I was called");
 
         return beerRepository.findById(beerId)
-                .map(beer -> {
-                    System.out.println("test");
-                    System.out.println(beer.getBeerName());
-                    return beer;
-                })
                 .map(b->{
                     if(showInventoryOnHAnd){
                         return beerMapper.beerToBeerDtoWithInventory(b);
@@ -76,6 +71,20 @@ public class BeerServiceImpl implements BeerService {
                 })
                 .orElseThrow(NotFoundException::new);
     }
+
+
+    @Cacheable(cacheNames = "beerUpcCache", key = "#upc")
+    @Override
+    public BeerDto getBeerByUpc(String upc) {
+
+        System.out.println("I was called");
+
+        return beerRepository.findBeerByUpc(upc)
+                .map(b-> beerMapper.beerToBeerDto(b))
+                .orElseThrow(NotFoundException::new);
+    }
+
+
 
     @Override
     public BeerDto saveBeer(BeerDto beerDto) {
