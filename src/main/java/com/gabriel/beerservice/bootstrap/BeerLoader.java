@@ -2,13 +2,15 @@ package com.gabriel.beerservice.bootstrap;
 
 import com.gabriel.beerservice.domain.Beer;
 import com.gabriel.beerservice.repositories.BeerRepository;
+import com.gabriel.beerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class BeerLoader implements CommandLineRunner {
 
@@ -24,11 +26,11 @@ public class BeerLoader implements CommandLineRunner {
     }
 
     private void loadBeerObjects(){
-
+        beerRepository.deleteAll();
         if(beerRepository.count()==0){
             beerRepository.save(Beer.builder()
                     .beerName("Mango Bob")
-                    .beerStyle("IPA")
+                    .beerStyle(BeerStyleEnum.IPA.name())
                     .quantityToBrew(200)
                     .minOnHand(12)
                     .upc(BEER_1_UPC)
@@ -37,7 +39,7 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(Beer.builder()
                     .beerName("Galaxy Cat")
-                    .beerStyle("PALE ALE")
+                    .beerStyle(BeerStyleEnum.ALE.name())
                     .quantityToBrew(200)
                     .minOnHand(12)
                     .upc(BEER_2_UPC)
@@ -46,13 +48,12 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(Beer.builder()
                     .beerName("Hugo")
-                    .beerStyle("PALE ALE")
+                    .beerStyle(BeerStyleEnum.PALE_ALE.name())
                     .quantityToBrew(200)
                     .minOnHand(12)
                     .upc(BEER_3_UPC)
                     .price(new BigDecimal("11.95"))
                     .build());
         }
-
     }
 }
