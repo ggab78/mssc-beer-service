@@ -1,4 +1,4 @@
-package com.gabriel.beerservice.services;
+package com.gabriel.beerservice.services.brewing;
 
 import com.gabriel.beerservice.config.JmsConfig;
 import com.gabriel.beerservice.domain.Beer;
