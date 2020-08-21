@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,20 +21,21 @@ public class BrewBeerListener {
     private final BeerRepository beerRepository;
     private final JmsTemplate jmsTemplate;
 
-@JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
-public void listen(BrewBeerEvent event){
+    @Transactional
+    @JmsListener(destination = JmsConfig.BREWING_REQUEST_QUEUE)
+    public void listen(BrewBeerEvent event) {
 
-    BeerDto beerDto = event.getBeerDto();
+        BeerDto beerDto = event.getBeerDto();
 
-    Beer beer = beerRepository.findById(beerDto.getId()).orElseThrow(()->new RuntimeException("Beer not found"));
+        Beer beer = beerRepository.findById(beerDto.getId()).orElseThrow(() -> new RuntimeException("Beer not found"));
 
-    beerDto.setQuantityOnHand(beer.getQuantityToBrew());
+        beerDto.setQuantityOnHand(beer.getQuantityToBrew());
 
-    NewInventoryIvent newInventoryIvent = new NewInventoryIvent(beerDto);
+        NewInventoryIvent newInventoryIvent = new NewInventoryIvent(beerDto);
 
-    log.debug("Brewed beer " +beer.getMinOnHand()+" : QOH" + beerDto.getQuantityOnHand());
+        log.debug("Brewed beer " + beer.getMinOnHand() + " : QOH" + beerDto.getQuantityOnHand());
 
-    jmsTemplate.convertAndSend(JmsConfig.NEW_INVENTORY_QUEUE, newInventoryIvent);
-}
+        jmsTemplate.convertAndSend(JmsConfig.NEW_INVENTORY_QUEUE, newInventoryIvent);
+    }
 
 }

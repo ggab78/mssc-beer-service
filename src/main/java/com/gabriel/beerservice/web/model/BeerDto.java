@@ -25,6 +25,7 @@ public class BeerDto implements Serializable {
 
     @Null
     private UUID id;
+
     @Null
     private Integer version;
 
