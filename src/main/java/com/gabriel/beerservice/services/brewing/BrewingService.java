@@ -12,6 +12,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -25,18 +26,23 @@ private final JmsTemplate jmsTemplate;
 private final BeerMapper mapper;
 
 
-@Scheduled(fixedRate = 5000)//every 5 seconds
+@Scheduled(fixedRate = 10000)//every 5 seconds
 public void checkForLowInventory(){
+
+    log.debug("###############");
+    log.debug("Scheduler :" +new Date());
+
 
     List<Beer> beers = beerRepository.findAll();
 
     beers.forEach(beer->{
-        Integer invQOH=beerInventoryService.getQtyOnHand(beer.getId());
+        Integer inventoryQOH=beerInventoryService.getQtyOnHand(beer.getId());
 
-        log.debug("Min on hand is "+beer.getMinOnHand());
-        log.debug("Inventory is "+invQOH);
+        log.debug("Beer Name "+beer.getBeerName());
+        log.debug("Min on hand is "+ beer.getMinOnHand());
+        log.debug("Inventory is "+ inventoryQOH);
 
-        if(invQOH <= beer.getMinOnHand()){
+        if(inventoryQOH <= beer.getMinOnHand()){
             jmsTemplate.convertAndSend(JmsConfig.BREWING_REQUEST_QUEUE, new BrewBeerEvent(mapper.beerToBeerDto(beer)));
         }
     });

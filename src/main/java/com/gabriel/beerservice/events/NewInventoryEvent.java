@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
-public class NewInventoryIvent extends BeerEvent {
-    public NewInventoryIvent(BeerDto beerDto) {
+public class NewInventoryEvent extends BeerEvent {
+    public NewInventoryEvent(BeerDto beerDto) {
         super(beerDto);
     }
 }

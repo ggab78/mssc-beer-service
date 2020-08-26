@@ -10,16 +10,16 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsConfig {
 
-    public static final String BREWING_REQUEST_QUEUE="brewing-request";
-    public static final String NEW_INVENTORY_QUEUE="new-inventory-request";
+    public static final String BREWING_REQUEST_QUEUE = "brewing-request";
+    public static final String NEW_INVENTORY_QUEUE = "newinventory";
 
-@Bean
-    public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper){
-    MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-    converter.setTargetType(MessageType.TEXT);
-    converter.setEncodingPropertyName("_type");
-    converter.setObjectMapper(objectMapper);
-    return converter;
-}
+    @Bean
+    public MessageConverter jacksonJmsMessageConverter(ObjectMapper objectMapper) {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+        converter.setTypeIdPropertyName("_type");
+        converter.setObjectMapper(objectMapper);
+        return converter;
+    }
 
 }

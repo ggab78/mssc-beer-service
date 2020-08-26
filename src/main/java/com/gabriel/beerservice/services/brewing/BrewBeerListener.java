@@ -3,7 +3,7 @@ package com.gabriel.beerservice.services.brewing;
 import com.gabriel.beerservice.config.JmsConfig;
 import com.gabriel.beerservice.domain.Beer;
 import com.gabriel.beerservice.events.BrewBeerEvent;
-import com.gabriel.beerservice.events.NewInventoryIvent;
+import com.gabriel.beerservice.events.NewInventoryEvent;
 import com.gabriel.beerservice.repositories.BeerRepository;
 import com.gabriel.beerservice.web.model.BeerDto;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +31,11 @@ public class BrewBeerListener {
 
         beerDto.setQuantityOnHand(beer.getQuantityToBrew());
 
-        NewInventoryIvent newInventoryIvent = new NewInventoryIvent(beerDto);
+        NewInventoryEvent newInventoryEvent = new NewInventoryEvent(beerDto);
 
-        log.debug("Brewed beer " + beer.getMinOnHand() + " : QOH" + beerDto.getQuantityOnHand());
+        log.debug("Brewed beer "+beerDto.getBeerName()+" min on hand " + beer.getMinOnHand() + " : QOH " + beerDto.getQuantityOnHand());
 
-        jmsTemplate.convertAndSend(JmsConfig.NEW_INVENTORY_QUEUE, newInventoryIvent);
+        jmsTemplate.convertAndSend(JmsConfig.NEW_INVENTORY_QUEUE, newInventoryEvent);
     }
 
 }
