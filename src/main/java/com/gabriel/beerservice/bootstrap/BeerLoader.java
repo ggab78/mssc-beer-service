@@ -2,13 +2,12 @@ package com.gabriel.beerservice.bootstrap;
 
 import com.gabriel.beerservice.domain.Beer;
 import com.gabriel.beerservice.repositories.BeerRepository;
-import com.gabriel.beerservice.web.model.BeerStyleEnum;
+import com.gabriel.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor

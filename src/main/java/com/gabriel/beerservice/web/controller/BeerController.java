@@ -1,9 +1,9 @@
 package com.gabriel.beerservice.web.controller;
 
 import com.gabriel.beerservice.services.BeerService;
-import com.gabriel.beerservice.web.model.BeerDto;
-import com.gabriel.beerservice.web.model.BeerPagedList;
-import com.gabriel.beerservice.web.model.BeerStyleEnum;
+import com.gabriel.model.BeerDto;
+import com.gabriel.model.BeerPagedList;
+import com.gabriel.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;

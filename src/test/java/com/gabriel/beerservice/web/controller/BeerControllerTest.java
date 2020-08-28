@@ -2,8 +2,8 @@ package com.gabriel.beerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gabriel.beerservice.services.BeerService;
-import com.gabriel.beerservice.web.model.BeerDto;
-import com.gabriel.beerservice.web.model.BeerStyleEnum;
+import com.gabriel.model.BeerDto;
+import com.gabriel.model.BeerStyleEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

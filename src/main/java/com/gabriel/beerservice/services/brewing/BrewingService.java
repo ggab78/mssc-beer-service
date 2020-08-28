@@ -2,7 +2,7 @@ package com.gabriel.beerservice.services.brewing;
 
 import com.gabriel.beerservice.config.JmsConfig;
 import com.gabriel.beerservice.domain.Beer;
-import com.gabriel.beerservice.events.BrewBeerEvent;
+import com.gabriel.model.events.BrewBeerEvent;
 import com.gabriel.beerservice.repositories.BeerRepository;
 import com.gabriel.beerservice.services.inventory.BeerInventoryService;
 import com.gabriel.beerservice.web.mappers.BeerMapper;

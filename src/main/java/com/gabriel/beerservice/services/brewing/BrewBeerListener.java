@@ -2,10 +2,10 @@ package com.gabriel.beerservice.services.brewing;
 
 import com.gabriel.beerservice.config.JmsConfig;
 import com.gabriel.beerservice.domain.Beer;
-import com.gabriel.beerservice.events.BrewBeerEvent;
-import com.gabriel.beerservice.events.NewInventoryEvent;
+import com.gabriel.model.events.BrewBeerEvent;
+import com.gabriel.model.events.NewInventoryEvent;
 import com.gabriel.beerservice.repositories.BeerRepository;
-import com.gabriel.beerservice.web.model.BeerDto;
+import com.gabriel.model.BeerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;

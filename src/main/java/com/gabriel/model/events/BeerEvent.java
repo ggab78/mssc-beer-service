@@ -1,6 +1,6 @@
-package com.gabriel.beerservice.events;
+package com.gabriel.model.events;
 
-import com.gabriel.beerservice.web.model.BeerDto;
+import com.gabriel.model.BeerDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
