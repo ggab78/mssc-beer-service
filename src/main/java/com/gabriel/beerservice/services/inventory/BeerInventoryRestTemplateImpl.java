@@ -4,6 +4,7 @@ import com.gabriel.beerservice.services.inventory.model.BeerInventoryDto;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Profile("!local-discovery")
 @Setter
 @ConfigurationProperties(prefix = "mssc.brewery", ignoreUnknownFields = false)
 @Component
 public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
 
-    private final String PATH = "/api/v1/beer/{beerId}/inventory";
+    public static final String PATH = "/api/v1/beer/{beerId}/inventory";
 
     private String beerInventoryHost;
 
