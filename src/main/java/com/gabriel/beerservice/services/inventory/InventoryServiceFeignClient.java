@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "inventory-service")
+@FeignClient(name = "inventory-service", fallback = InventoryServiceFeignClientImpl.class)
 public interface InventoryServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET, value = BeerInventoryRestTemplateImpl.PATH)
-    ResponseEntity<List<BeerInventoryDto>> getQtyOnHand(@PathVariable UUID beerId);
+    ResponseEntity<List<BeerInventoryDto>> getQtyOnHand(@PathVariable("beerId") UUID beerId);
 
 }
