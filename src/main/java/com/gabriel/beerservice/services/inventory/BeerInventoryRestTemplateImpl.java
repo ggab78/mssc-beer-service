@@ -1,6 +1,7 @@
 package com.gabriel.beerservice.services.inventory;
 
 import com.gabriel.beerservice.services.inventory.model.BeerInventoryDto;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,26 +20,24 @@ import java.util.UUID;
 @Setter
 @ConfigurationProperties(prefix = "mssc.brewery", ignoreUnknownFields = false)
 @Component
+@RequiredArgsConstructor
 public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
 
     public static final String PATH = "/api/v1/beer/{beerId}/inventory";
+    private final RestTemplateBuilder restTemplateBuilder;
 
     private String beerInventoryHost;
+    private String beerInventoryPassword;
+    private String beerInventoryUser;
 
-    private final RestTemplate restTemplate;
 
-    public void setBeerInventoryHost(String beerInventoryHost){
-        this.beerInventoryHost = beerInventoryHost;
-    }
-
-    public BeerInventoryRestTemplateImpl(RestTemplateBuilder templateBuilder) {
-        this.restTemplate = templateBuilder.build();
-    }
 
     @Override
     public Integer getQtyOnHand(UUID beerId) {
 
-        ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
+
+
+        ResponseEntity<List<BeerInventoryDto>> responseEntity = buildRestTemplate()
                 .exchange(beerInventoryHost + PATH, HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<BeerInventoryDto>>(){}, (Object) beerId);
 
@@ -47,4 +46,12 @@ public class BeerInventoryRestTemplateImpl implements BeerInventoryService {
                 .mapToInt(BeerInventoryDto::getQuantityOnHand)
                 .sum();
     }
+
+    private RestTemplate buildRestTemplate(){
+
+        return restTemplateBuilder
+                .basicAuthentication(beerInventoryUser, beerInventoryPassword)
+                .build();
+    }
+
 }
