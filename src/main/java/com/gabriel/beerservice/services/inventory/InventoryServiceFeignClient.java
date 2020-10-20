@@ -1,5 +1,6 @@
 package com.gabriel.beerservice.services.inventory;
 
+import com.gabriel.beerservice.config.FeignClientSecurityConfig;
 import com.gabriel.beerservice.services.inventory.model.BeerInventoryDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(name = "inventory-service", fallback = InventoryServiceFeignClientImpl.class)
+@FeignClient(name = "inventory-service",
+        fallback = InventoryServiceFeignClientImpl.class,
+        configuration = FeignClientSecurityConfig.class)
 public interface InventoryServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET, value = BeerInventoryRestTemplateImpl.PATH)
