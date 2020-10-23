@@ -61,6 +61,7 @@ services:
       - config
       - jms
       - mysql
+      - beer-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
       SPRING_PROFILES_ACTIVE: local-discovery, docker
@@ -77,6 +78,7 @@ services:
       - config
       - jms
       - mysql
+      - inventory-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
       SPRING_PROFILES_ACTIVE: local-discovery, docker
@@ -92,6 +94,7 @@ services:
       - eureka
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery
       SPRING_ZIPKIN_BASEURL: http://zipkin
 
   gateway:
@@ -100,6 +103,10 @@ services:
       - 9090:9090
     depends_on:
       - eureka
+      - beer-service
+      - inventory-service
+      - order-service
+      - inventory-failover
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
       SPRING_PROFILES_ACTIVE: local-discovery
