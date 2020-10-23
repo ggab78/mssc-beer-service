@@ -11,7 +11,6 @@ services:
     volumes:
       - /home/gabriel/dockerdata/mysql:/var/lib/mysql
 
-
   jms:
     image: vromero/activemq-artemis
     ports:
@@ -52,3 +51,56 @@ services:
       SPRING_ZIPKIN_BASEURL: http://zipkin
       SPRING_ARTEMIS_HOST: jms
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+
+  order-service:
+    image: ggab78/mssc-beer-order-service
+    ports:
+      - 8081:8081
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery, docker
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+
+  beer-service:
+    image: ggab78/mssc-beer-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka
+      - config
+      - jms
+      - mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery, docker
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+      SPRING_ARTEMIS_HOST: jms
+      SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+
+  inventory-failover:
+    image: ggab78/mssc-beer-inventory-failover
+    ports:
+      - 8083:8083
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_ZIPKIN_BASEURL: http://zipkin
+
+  gateway:
+    image: ggab78/mssc-brewery-gateway
+    ports:
+      - 9090:9090
+    depends_on:
+      - eureka
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+      SPRING_PROFILES_ACTIVE: local-discovery
+      SPRING_ZIPKIN_BASEURL: http://zipkin
