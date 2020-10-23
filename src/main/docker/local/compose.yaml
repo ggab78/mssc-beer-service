@@ -16,16 +16,19 @@ services:
     ports:
       - 8161:8161
       - 61616:61616
+    restart: on-failure
 
   zipkin:
     image: openzipkin/zipkin
     ports:
       - 9411:9411
+    restart: on-failure
 
   eureka:
     image: ggab78/mssc-brewery-eureka
     ports:
       - 8761:8761
+    restart: on-failure
 
   config:
     image: ggab78/mssc-config-server
@@ -35,6 +38,7 @@ services:
       - eureka
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+    restart: on-failure
 
   inventory-service:
     image: ggab78/mssc-beer-inventory-service
@@ -51,6 +55,7 @@ services:
       SPRING_ZIPKIN_BASEURL: http://zipkin
       SPRING_ARTEMIS_HOST: jms
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+    restart: on-failure
 
   order-service:
     image: ggab78/mssc-beer-order-service
@@ -68,6 +73,7 @@ services:
       SPRING_ZIPKIN_BASEURL: http://zipkin
       SPRING_ARTEMIS_HOST: jms
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+    restart: on-failure
 
   beer-service:
     image: ggab78/mssc-beer-service
@@ -85,6 +91,7 @@ services:
       SPRING_ZIPKIN_BASEURL: http://zipkin
       SPRING_ARTEMIS_HOST: jms
       SPRING_APPLICATION_JSON: '{"spring": {"cloud": {"config": {"uri": "http://MyUserName:MySecretPassword@config:8888"}}}}'
+    restart: on-failure
 
   inventory-failover:
     image: ggab78/mssc-beer-inventory-failover
@@ -96,6 +103,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
       SPRING_PROFILES_ACTIVE: local-discovery
       SPRING_ZIPKIN_BASEURL: http://zipkin
+    restart: on-failure
 
   gateway:
     image: ggab78/mssc-brewery-gateway
@@ -111,3 +119,4 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
       SPRING_PROFILES_ACTIVE: local-discovery
       SPRING_ZIPKIN_BASEURL: http://zipkin
+    restart: on-failure
